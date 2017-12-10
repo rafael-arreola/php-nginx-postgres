@@ -1,5 +1,6 @@
-from webdevops/php-nginx:7.0
-RUN apt-get update \
-	&& apt-get install -y libpq-dev \
-	&& docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
-    && docker-php-ext-install pdo pdo_pgsql pgsql
+from webdevops/php-nginx:alpine-php7
+RUN set -x && \
+	apk add --no-cache --update --virtual build-deps gcc python-dev musl-dev && \	
+	apk add postgresql-dev \
+	php7-pgsql && \
+	docker-image-cleanup
